@@ -1,4 +1,4 @@
-const coffeeStock = require('./state');
+const { coffeeStock, isCoffeeMachineReady } = require('./state');
 
 
 const makeCoffee = (type, miligrams) => {
@@ -10,4 +10,7 @@ const makeCoffee = (type, miligrams) => {
     }
 };
 
+
+console.log(coffeeStock);
+console.log(isCoffeeMachineReady);
 makeCoffee("robusta", 80);
