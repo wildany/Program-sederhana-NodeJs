@@ -8,29 +8,49 @@ const state = {
 }
 
 
-function makeEkspresso() {
+// function makeEkspresso() {
 
-    checkAvailability()
-        .then((value) => {
+//     checkAvailability()
+//         .then((value) => {
 
-            console.info(value);
-            return checkStock();
-        })
-        .then((value) => {
+//             console.info(value);
+//             return checkStock();
+//         })
+//         .then((value) => {
 
-            console.log(value);
-            return brewCoffee();
+//             console.info(value);
 
-        })
-        .then((value) => {
+//             const promises = [boilWater(), grindCoffeeBeans()];
 
-            console.log(value);
-        })
-        .catch((rejectedReason) => {
+//             return Promise.all(promises);
+//         })
+//         .then((value) => {
 
-            console.log(rejectedReason);
+//             console.log(...value);
+//             return brewCoffee();
 
-        })
+//         })
+//         .then((value) => {
+
+//             console.log(value);
+//         })
+//         .catch((rejectedReason) => {
+
+//             console.log(rejectedReason);
+
+//         })
+// }
+
+async function makeEkspresso() {
+    try {
+        await checkAvailability();
+        await checkStock();
+        await Promise.all([boilWater(), grindCoffeeBeans()]);
+        const coffee = await brewCoffee();
+        console.log(coffee);
+    } catch (rejectedReason) {
+        console.log(rejectedReason);
+    }
 }
 
 const checkAvailability = () => {
@@ -74,6 +94,24 @@ const brewCoffee = () => {
 
             resolve("kopi sudah siap");
         }, 2000);
+    })
+}
+
+const boilWater = () => {
+    return new Promise((resolve, reject) => {
+        console.log("Memanaskan air...");
+        setTimeout(() => {
+            resolve("Air panas sudah siap!");
+        }, 2000);
+    })
+}
+
+const grindCoffeeBeans = () => {
+    return new Promise((resolve, reject) => {
+        console.log("Menggiling biji kopi...");
+        setTimeout(() => {
+            resolve("Kopi sudah siap!");
+        }, 1000);
     })
 }
 
